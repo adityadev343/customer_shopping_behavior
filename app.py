@@ -744,6 +744,7 @@ with tabs[8]:
 
     sql_query = st.text_area("SQL Query (editable)", key="sql_editor", height=150)
 
+    # ========== REPLACED EXECUTE QUERY BLOCK (improved version) ==========
     if st.button("▶️ Execute Query", use_container_width=True):
         if not sql_query.strip():
             st.error("SQL query is empty.")
@@ -752,22 +753,33 @@ with tabs[8]:
                 conn = duckdb.connect()
                 conn.register("df", filtered_df)
                 result_df = conn.execute(sql_query).fetchdf()
-                st.success(f"Query returned {len(result_df)} rows.")
+                
+                st.success(f"Query returned {len(result_df):,} rows.")
+
+                # === RESULT TABLE ===
                 st.dataframe(result_df, use_container_width=True)
 
-                # AI business insights on result
+                # === DYNAMIC VISUALIZATION ===
+                if not result_df.empty and len(result_df.columns) >= 2 and len(result_df) <= 100:
+                    with st.spinner("🎨 Generating smart visualization..."):
+                        fig = generate_dynamic_chart(result_df, user_question, api_keys)
+                        if fig:
+                            st.subheader("📊 Smart Dynamic Visualization")
+                            st.plotly_chart(fig, use_container_width=True, key=next_key("ai_dynamic_viz"))
+                            st.caption("Visualization automatically adapted to your query result • Powered by data profiling + Gemini title generation")
+                        else:
+                            st.info("Visualization not available for this result shape.")
+
+                # === EXISTING AI INSIGHTS ===
                 if not result_df.empty and len(result_df) <= 50:
-                    with st.spinner("🤖 Generating business insights from the result..."):
+                    with st.spinner("🤖 Generating business insights..."):
                         insight_prompt = build_insight_prompt(user_question, result_df)
                         insight_response = call_gemini_with_fallback(insight_prompt, api_keys)
                         if insight_response:
-                            st.info(f"💼 **Business Insight:**\n\n{insight_response}")
-                        else:
-                            st.warning("AI insight generation failed (API issue).")
+                            st.info(f"💼 **Business Insights:**\n\n{insight_response}")
                 elif len(result_df) > 50:
-                    st.info("📊 Result is large (>50 rows). AI insights not generated to avoid hallucination. Consider summarizing your query (e.g., GROUP BY, LIMIT).")
-                else:
-                    st.info("No data to generate insights.")
+                    st.info("📊 Result is large (>50 rows). AI insights skipped. Try adding LIMIT or GROUP BY.")
+
             except Exception as e:
                 st.error(f"SQL execution error: {e}")
 
