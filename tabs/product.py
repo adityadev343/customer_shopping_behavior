@@ -77,7 +77,7 @@ def render_product_tab(df, next_key):
         avg_color = df.groupby("color")["purchase_amount"].mean().nlargest(5).reset_index()
         st.subheader("Top 5 Colors by Avg Purchase")
         st.dataframe(avg_color)
-
+    
     # Product Affinity
     st.subheader("Product Affinity (Customers who bought X also bought Y)")
     top_products = prod_perf.nlargest(5, "transactions")["item_purchased"].tolist()
@@ -87,12 +87,16 @@ def render_product_tab(df, next_key):
         other_prods = df[df["customer_id"].isin(cust_ids) & (df["item_purchased"] != prod)]["item_purchased"].value_counts().head(3)
         for other, cnt in other_prods.items():
             affinity_data.append({"Base Product": prod, "Also Bought": other, "Count": cnt})
+    
     if affinity_data:
         affinity_df = pd.DataFrame(affinity_data)
         st.dataframe(affinity_df, use_container_width=True)
+        
         if not affinity_df.empty:
             base = affinity_df.iloc[0]["Base Product"]
             also = affinity_df.iloc[0]["Also Bought"]
             st.info(f"💡 **Insight:** Customers who bought **{base}** are more likely to buy **{also}**. Create a 'frequently bought together' bundle.")
+        else:
+            st.info("Not enough data for affinity analysis with current filters.")
     else:
         st.info("Not enough data for affinity analysis with current filters.")
