@@ -14,6 +14,7 @@ from ai_assistant import (
     build_sql_generation_prompt,
     parse_sql_from_response,
     build_insight_prompt,
+    generate_dynamic_chart,
 )
 
 st.set_page_config(
