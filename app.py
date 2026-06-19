@@ -5,6 +5,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 import duckdb
 import re
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 from data_loader import load_data
 from tabs import (
