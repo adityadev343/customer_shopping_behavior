@@ -52,7 +52,7 @@ def get_schema_description(df):
 def build_sql_generation_prompt(question, schema_text):
     """Build the prompt for SQL generation."""
     return f"""
-You are an expert SQL assistant for a shopping behavior dataset.
+You are an advanced-expert SQL assistant with 20+ years of professional experience for a shopping behavior dataset.
 
 Database schema (only these columns exist, DO NOT invent any others):
 {schema_text}
@@ -98,7 +98,7 @@ def build_insight_prompt(question, result_df):
         note = ""
 
     return f"""
-You are a senior business analyst. Below is a data result from a user's SQL query on a shopping dataset.
+You are a senior business analyst with 20+ years of professional experience. Below is a data result from a user's SQL query on a shopping dataset.
 
 User's original question: "{question}"
 
