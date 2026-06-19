@@ -1,10 +1,10 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-from config import HIGH_SPENDER_PERCENTILE
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from config import HIGH_SPENDER_PERCENTILE
 
 def render_customer_tab(df, next_key):
     st.subheader("Customer Segmentation & Value")
