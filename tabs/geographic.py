@@ -1,5 +1,8 @@
 import streamlit as st
 import plotly.express as px
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from config import TOP_N_STATES
 
 def render_geographic_tab(df, next_key):
