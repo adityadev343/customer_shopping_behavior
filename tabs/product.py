@@ -1,5 +1,8 @@
 import streamlit as st
 import plotly.express as px
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from config import MIN_TRANSACTIONS_FOR_RATING
 
 def render_product_tab(df, next_key):
