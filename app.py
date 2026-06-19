@@ -765,9 +765,8 @@ with tabs[8]:
                     with st.spinner("🎨 Generating smart visualization..."):
                         fig = generate_dynamic_chart(result_df, user_question, api_keys)
                         if fig:
-                            st.subheader("📊 Smart Dynamic Visualization")
+                            st.subheader("📊 Smart Visualization")
                             st.plotly_chart(fig, use_container_width=True, key=next_key("ai_dynamic_viz"))
-                            st.caption("Visualization automatically adapted to your query result • Powered by data profiling + Gemini title generation")
                         else:
                             st.info("Visualization not available for this result shape.")
 
