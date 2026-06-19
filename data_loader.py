@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from config import DATA_FILE
 
-
 @st.cache_data
 def load_data():
     """Load and preprocess the shopping behavior dataset."""
