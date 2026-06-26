@@ -210,40 +210,6 @@ streamlit run app.py
 
 ---
 
-# 📊 Dataset
-
-**Source:** Customer Shopping Transactions Dataset (~18,000 records)
-
-### Important Columns
-
-- Customer ID
-- Age
-- Gender
-- Item Purchased
-- Category
-- Purchase Amount
-- Location
-- Size
-- Color
-- Season
-- Review Rating
-- Subscription Status
-- Shipping Type
-- Discount Applied
-- Promo Code Used
-- Previous Purchases
-- Payment Method
-- Purchase Frequency
-
-Derived Features:
-
-- Age Groups
-- Customer Segments
-- CLV Proxy
-- Cohort Information
-
----
-
 # 🛠️ Tech Stack
 
 | Component | Technology |
